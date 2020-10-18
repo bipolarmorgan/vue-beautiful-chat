@@ -1,5 +1,5 @@
 <template>
-  <div class="sc-message" :id="message.id">
+  <div :id="message.id" class="sc-message">
     <div
       class="sc-message--content"
       :class="{
@@ -219,7 +219,7 @@ export default {
   &.confirm-delete .sc-message--toolbox {
     width: auto;
   }
-  .sc-message--toolbox{
+  .sc-message--toolbox {
     transition: left 0.2s ease-out 0s;
     white-space: normal;
     opacity: 0;

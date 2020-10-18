@@ -2,13 +2,22 @@
   <div class="sc-message--text" :style="messageColors">
     <template>
       <div class="sc-message--toolbox" :style="{background: messageColors.backgroundColor}">
-        <button v-if="showEdition && me && message.id" @click="edit" :disabled="isEditing">
-          <IconBase :color="isEditing? 'black': messageColors.color" width="10" icon-name="edit">
+        <button v-if="showEdition && me && message.id" :disabled="isEditing" @click="edit">
+          <IconBase :color="isEditing ? 'black' : messageColors.color" width="10" icon-name="edit">
             <IconEdit />
           </IconBase>
         </button>
         <div v-if="showDeletion">
-          <button v-if="me && message.id != null && message.id != undefined" @click="ifelse(showConfirmationDeletion, withConfirm(confirmationDeletionMessage, () => $emit('remove')), () => $emit('remove'))()">
+          <button
+            v-if="me && message.id != null && message.id != undefined"
+            @click="
+              ifelse(
+                showConfirmationDeletion,
+                withConfirm(confirmationDeletionMessage, () => $emit('remove')),
+                () => $emit('remove')
+              )()
+            "
+          >
             <IconBase :color="messageColors.color" width="10" icon-name="remove">
               <IconCross />
             </IconBase>
@@ -42,10 +51,10 @@ import store from './../store/'
 const fmt = require('msgdown')
 
 export default {
-  data() {
-    return {
-      store
-    }
+  components: {
+    IconBase,
+    IconCross,
+    IconEdit
   },
   props: {
     message: {
@@ -75,6 +84,11 @@ export default {
     confirmationDeletionMessage: {
       type: String,
       required: true
+    }
+  },
+  data() {
+    return {
+      store
     }
   },
   computed: {
@@ -107,12 +121,7 @@ export default {
       return () => {
         if (confirm(msg)) func()
       }
-    },
-  },
-  components:{
-    IconBase,
-    IconCross,
-    IconEdit,
+    }
   }
 }
 </script>
